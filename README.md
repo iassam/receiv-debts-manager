@@ -4,10 +4,12 @@
 
 O projeto Receiv-debits-manager foi criado com base nas especificações fornecidas para o processo seletivo da empresa receiv. Onde o mesmo mostra por meio de um sistema de gestão de dividas como utilizar laravel para micro serviços. 
 
+O projeto foi criado utilizando as seguintes tecnologias:
 - Laravel v 8.x
 - Mysql
 - PHP
 - Laravel Passport
+- Insomnia rest client
 
 ## Iniciando o projeto
 
@@ -212,3 +214,10 @@ com o seguinte corpo em formato JSON:
     "updated": "2021-02-22T19:24:29-05:00"
 }
 ```
+
+## Api Insomnia Project (Extra)
+
+Na raiz do projeto o arquivo "Insomnia_api_endpoints.json", contêm um projeto insomnia completo com todos os endpoints e variáveis de ambiente configuradas.
+
+Caso não possua o software insomnia o mesmo pode ser baixo a partir do seguinte endereço:
+https://insomnia.rest/download/
