@@ -34,14 +34,14 @@ DB_PASSWORD=senha_do_usuario
 
 Atenção: O projeto foi desenhado com base no banco de dados mysql, portanto para melhor aproveitamento utilize as configurações recomendadas.
 
-### Gerando chaves Laravel Passport
-```
-php artisan passport:install
-```
-
 ### Recriando banco de dados pre-configurado:
 ```
 php artisan migrate:fresh
+```
+
+### Gerando chaves Laravel Passport
+```
+php artisan passport:install
 ```
 
 ### Rodando em ambiente de desenvolvimento (local)
