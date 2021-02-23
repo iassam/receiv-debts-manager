@@ -22,8 +22,9 @@ class CreateDebtorsTable extends Migration
             $table->text('descricao_titulo');
             $table->float('valor');
             $table->date('data_vencimento');
-            $table->timestamp('updated');
-            $table->timestamps();
+            $table->dateTime('updated', $precision = 0);
+            $table->dateTime('created_at', $precision = 0);
+            $table->dateTime('updated_at', $precision = 0);
         });
     }
 
