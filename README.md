@@ -1,62 +1,212 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Receiv Debits Manager v 1.0
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sobre o Projeto
 
-## About Laravel
+O projeto Receiv-debits-manager foi criado com base nas especificações fornecidas para o processo seletivo da empresa receiv. Onde o mesmo mostra por meio de um sistema de gestão de dividas como utilizar laravel para micro serviços. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel v 8.x
+- Mysql
+- PHP
+- Laravel Passport
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Iniciando o projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Instalando as dependencias do projeto:
 
-## Learning Laravel
+```
+composer install
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Configurando banco de dados:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para configurar o banco de dados edite o arquivo ".env" na raiz do projeto onde as seguintes variaveis de ambiente deverão ser alteradas:
 
-## Laravel Sponsors
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_do_banco_de_dados
+DB_USERNAME=nome_do_usuario
+DB_PASSWORD=senha_do_usuario
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Atenção: O projeto foi desenhado com base no banco de dados mysql, portanto para melhor aproveitamento utilize as configurações recomendadas.
 
-### Premium Partners
+### Gerando chaves Laravel Passport
+```
+php artisan passport:install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+### Recriando banco de dados pre-configurado:
+```
+php artisan migrate:fresh
+```
 
-## Contributing
+### Rodando em ambiente de desenvolvimento (local)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Para iniciar o servidor php embutido utilize o seguinte comando:
 
-## Code of Conduct
+`````
+php artisan serve
+`````
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Apos rodar do seguinte comando o servidor local estará disponivel.
 
-## Security Vulnerabilities
+## Endpoins Api
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para acessar aos recursos de manipulação de dados de devedores será necessario registar um usuário e realizar o cadastro de um novo usuário. E logo apos realizar sua autenticação para que os recursos desejados sejam acessados com segurança.
 
-## License
+## Registrando um novo usuário (Obrigatorio)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Para registar um novo usuário utilize o seguinte endpoint:
+
+Tipo de requisição: **POST**
+
+```
+http://localhost:8000/api/register
+```
+
+Com o seguinte corpo em formato JSON:
+```
+{
+    "name": "teste",
+    "email": "iss.iassam@gmail.com",
+    "password": "senha123",
+    "password_confirmation": "senha123"
+}
+```
+Onde
+
+name: Deverá ser o nome do usuário.
+email: Email de contato do usuário utilizando para gerar o token de autenticação.
+password: Senha de caracteres alfa numericos a escolha do usuário.
+password_confirmation: Confirmação de senha de caracteres alfa numericos, onde a mesma deverá ser igual a fornecida no campo "password".
+
+## Obtendo um token de autenticação
+
+Para obter um token de autenticação utilize o seguinte endpoint:
+
+Tipo de requisição: **POST**
+
+```
+http://localhost:8000/api/login
+```
+
+Com o seguinte corpo em formato JSON:
+```
+{
+    "email": "usuario@email.com",
+    "password": "senha_do_usuario"
+}
+```
+
+onde:
+email: deverá conter o email do usuário previamente cadastrado.
+password: deverá conter a senha do usuário previamente cadastrado.
+
+Em caso de sucesso um token de autenticação será retornado "access_token".
+
+![image01](./docs/image01.png)
+
+# Endpoints Devedores
+
+Para acessar os endpoints a baixo utilizar o "access_token" fornecido pelo endpoint de login no cabeçalho "Autorization" com o seguinte valor "Bearer token_fornecido".
+
+![image01](./docs/image02.png)
+
+## Cadastrando um novo Devedor
+Para cadastrar um novo devedor utilize o seguinte endpoint:
+
+Tipo de requisição: **POST**
+
+```
+http://localhost:3333/api/debtors
+```
+
+com o seguinte corpo em formato JSON:
+
+```
+{
+    "nome": "nome do devedor",
+    "cpf_cnpj": "12312312",
+    "data_nascimento": "2021-02-22",
+    "endereco": "endereco devedor",
+    "descricao_titulo": "teste de titulo",
+    "valor": "1000.13",
+    "data_vencimento": "2021-02-22",
+    "updated": "2021-02-22T19:24:29-05:00"
+}
+```
+
+## Listagem de Devedores
+Para listar os devedores cadastrados utilizar o seguinte endpoint:
+
+Tipo de requisição: **GET**
+
+```
+http://localhost:3333/api/debtors
+```
+
+## Visualizando um Devedor
+Para visualizar as informações cadastrais de um devedor o seguinte endpoint:
+
+Tipo de requisição: **GET**
+
+```
+http://localhost:3333/api/debtors/<debtor_id>
+```
+
+onde
+"debtor_id" devera ser substituido pelo id do devedor desejado.
+
+## Atualizando os dados de um Devedor
+Para atualizar os dados cadastrais de um devedor utilize o seguinte endpoint:
+
+Tipo de requisição: **PUT**
+
+```
+http://localhost:3333/api/debtors/<debtor_id>
+```
+
+onde
+"debtor_id" devera ser substituido pelo id do devedor desejado.
+
+com o seguinte corpo em formato JSON:
+
+```
+{
+    "nome": "nome do devedor",
+    "cpf_cnpj": "12312312",
+    "data_nascimento": "2021-02-22",
+    "endereco": "endereco devedor",
+    "descricao_titulo": "teste de titulo",
+    "valor": "1000.13",
+    "data_vencimento": "2021-02-22",
+    "updated": "2021-02-22T19:24:29-05:00"
+}
+```
+
+## Removendo um Devedor
+Para excluir um devedor utilize o seguinte endpoint:
+
+Tipo de requisição: **DELETE**
+
+```
+http://localhost:3333/api/debtors/<debtor_id>
+```
+
+onde
+"debtor_id" devera ser substituido pelo id do devedor desejado.
+
+com o seguinte corpo em formato JSON:
+
+```
+{
+    "nome": "nome do devedor",
+    "cpf_cnpj": "12312312",
+    "data_nascimento": "2021-02-22",
+    "endereco": "endereco devedor",
+    "descricao_titulo": "teste de titulo",
+    "valor": "1000.13",
+    "data_vencimento": "2021-02-22",
+    "updated": "2021-02-22T19:24:29-05:00"
+}
+```
