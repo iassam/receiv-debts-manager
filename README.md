@@ -21,12 +21,14 @@ composer install
 
 Para configurar o banco de dados edite o arquivo ".env" na raiz do projeto onde as seguintes variaveis de ambiente deverão ser alteradas:
 
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=nome_do_banco_de_dados
 DB_USERNAME=nome_do_usuario
 DB_PASSWORD=senha_do_usuario
+````
 
 Atenção: O projeto foi desenhado com base no banco de dados mysql, portanto para melhor aproveitamento utilize as configurações recomendadas.
 
